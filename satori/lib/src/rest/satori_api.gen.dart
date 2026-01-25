@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
+import 'flag_reason_type_converter.dart';
 
 part 'satori_api.gen.g.dart';
 
@@ -35,7 +36,8 @@ class ApiUpdateMessageRequest {
 class FlagValueChangeReason {
     @JsonKey(name: 'name')
     final String? name;
-    @JsonKey(name: 'type', unknownEnumValue: FlagValueChangeReasonType.unknown)
+    @JsonKey(name: 'type')
+    @FlagValueChangeReasonTypeConverter()
     final FlagValueChangeReasonType? type;
     @JsonKey(name: 'variant_name')
     final String? variantName;

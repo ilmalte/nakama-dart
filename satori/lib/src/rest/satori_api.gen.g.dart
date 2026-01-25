@@ -24,9 +24,7 @@ FlagValueChangeReason _$FlagValueChangeReasonFromJson(
         Map<String, dynamic> json) =>
     FlagValueChangeReason(
       name: json['name'] as String?,
-      type: $enumDecodeNullable(
-          _$FlagValueChangeReasonTypeEnumMap, json['type'],
-          unknownValue: FlagValueChangeReasonType.unknown),
+      type: const FlagValueChangeReasonTypeConverter().fromJson(json['type']),
       variantName: json['variant_name'] as String?,
     );
 
@@ -34,16 +32,9 @@ Map<String, dynamic> _$FlagValueChangeReasonToJson(
         FlagValueChangeReason instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'type': _$FlagValueChangeReasonTypeEnumMap[instance.type],
+      'type': const FlagValueChangeReasonTypeConverter().toJson(instance.type),
       'variant_name': instance.variantName,
     };
-
-const _$FlagValueChangeReasonTypeEnumMap = {
-  FlagValueChangeReasonType.unknown: 'UNKNOWN',
-  FlagValueChangeReasonType.flagVariant: 'FLAG_VARIANT',
-  FlagValueChangeReasonType.liveEvent: 'LIVE_EVENT',
-  FlagValueChangeReasonType.experiment: 'EXPERIMENT',
-};
 
 ApiAuthenticateLogoutRequest _$ApiAuthenticateLogoutRequestFromJson(
         Map<String, dynamic> json) =>
@@ -503,7 +494,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiSession.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -561,7 +552,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiSession.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -618,7 +609,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiExperimentList.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -650,7 +641,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiFlagList.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -682,7 +673,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiFlagOverrideList.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -715,7 +706,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiSession.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -768,7 +759,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiLiveEventList.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -806,7 +797,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiGetMessageListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -885,7 +876,7 @@ class _SatoriApiClient implements SatoriApiClient {
     try {
       _value = ApiProperties.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;

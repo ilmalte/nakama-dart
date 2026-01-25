@@ -21,7 +21,21 @@ go run main.go -output "$SCRIPT_DIR/lib/src/rest/satori_api.gen.dart" "$OPENAPI_
 echo "✓ REST API code generated"
 
 echo ""
-echo "2. Running build_runner for json_serializable..."
+echo "2. Applying custom type converters..."
+# Add import for the custom converter
+sed -i '' '/^import.*retrofit.*;$/a\
+import '\''flag_reason_type_converter.dart'\'';
+' "$SCRIPT_DIR/lib/src/rest/satori_api.gen.dart"
+
+# Add converter annotation to FlagValueChangeReason.type field  
+sed -i '' '/class FlagValueChangeReason {/,/@JsonKey(name: '\''type'\'')/ {
+    /@JsonKey(name: '\''type'\'')/ s/@JsonKey(name: '\''type'\'')/@JsonKey(name: '\''type'\'')\
+    @FlagValueChangeReasonTypeConverter()/
+}' "$SCRIPT_DIR/lib/src/rest/satori_api.gen.dart"
+echo "✓ Custom converters applied"
+
+echo ""
+echo "3. Running build_runner for json_serializable..."
 cd "$SCRIPT_DIR"
 dart run build_runner build --delete-conflicting-outputs
 echo "✓ Build runner complete"
