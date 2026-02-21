@@ -758,7 +758,7 @@ class NakamaGrpcClient extends NakamaBaseClient {
       api.ListChannelMessagesRequest(
         channelId: channelId,
         limit: api.Int32Value(value: limit),
-        forward: api.BoolValue(value: forward),
+        forward: forward != null ? api.BoolValue(value: forward) : null,
         cursor: cursor,
       ),
       options: _getSessionCallOptions(session),
@@ -959,7 +959,7 @@ class NakamaGrpcClient extends NakamaBaseClient {
         description: api.StringValue(value: description),
         langTag: api.StringValue(value: langTag),
         name: api.StringValue(value: name),
-        open: api.BoolValue(value: open),
+        open: open != null ? api.BoolValue(value: open) : null,
       ),
       options: _getSessionCallOptions(session),
     );
@@ -1184,7 +1184,7 @@ class NakamaGrpcClient extends NakamaBaseClient {
   }) async {
     final res = await _client.listMatches(
       api.ListMatchesRequest(
-        authoritative: api.BoolValue(value: authoritative),
+        authoritative: authoritative != null ? api.BoolValue(value: authoritative) : null,
         label: label != null ? api.StringValue(value: label) : null,
         limit: api.Int32Value(value: limit),
         maxSize: api.Int32Value(value: maxSize),
